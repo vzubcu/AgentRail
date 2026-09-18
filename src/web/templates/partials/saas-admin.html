@@ -1,0 +1,146 @@
+<!-- ── SaaS Admin Tab ── -->
+<section id="saas-admin" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Admin Panel</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Manage users and monitor system usage</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <select id="saas-admin-section-select" class="field-input field-input--select w-auto px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" aria-label="Admin section">
+          <option value="users">Users</option>
+          <option value="plans">Plans</option>
+          <option value="usage">Usage</option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <div id="saas-admin-users">
+    <details class="card admin-create-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-6">
+      <summary class="admin-create-summary cursor-pointer text-lg font-semibold text-slate-900 dark:text-white">+ Create New User</summary>
+      <div class="content-grid content-grid--2 admin-create-grid grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="admin-create-name">Name</label>
+          <input type="text" id="admin-create-name" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Name">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="admin-create-email">Email</label>
+          <input type="email" id="admin-create-email" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Email">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="admin-create-password">Password</label>
+          <input type="password" id="admin-create-password" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Password">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="admin-create-tier">Tier</label>
+          <select id="admin-create-tier" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors">
+            <option value="free">Free</option>
+            <option value="pro">Pro</option>
+            <option value="enterprise">Enterprise</option>
+          </select>
+        </div>
+        <label class="field-checkbox flex items-center">
+          <input type="checkbox" id="admin-create-is-admin" class="h-4 w-4 text-indigo-600 border-indigo-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600"> <span class="ml-2 text-sm font-medium text-slate-700 dark:text-slate-300">Make admin</span>
+        </label>
+        <button class="btn btn--primary px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25" id="admin-create-user-btn">Create User</button>
+      </div>
+    </details>
+
+    <div class="table-wrapper overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Email</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Name</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Plan</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Admin</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Status</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Created</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Keys</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Delete</th>
+          </tr>
+        </thead>
+        <tbody id="saas-admin-users-list">
+          <tr><td colspan="8" class="px-3 py-8 text-center text-slate-500 dark:text-slate-400">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="saas-admin-plans" style="display:none">
+    <details class="card admin-create-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-6">
+      <summary class="admin-create-summary cursor-pointer text-lg font-semibold text-slate-900 dark:text-white">+ Add Plan</summary>
+      <div class="content-grid content-grid--2 admin-create-grid grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-id">Plan ID (e.g. starter)</label>
+          <input type="text" id="plan-create-id" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Plan ID (e.g. starter)">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-name">Plan Name (e.g. Starter)</label>
+          <input type="text" id="plan-create-name" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Plan Name (e.g. Starter)">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-price">Price $/mo</label>
+          <input type="number" id="plan-create-price" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Price $/mo">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-req">Requests / day</label>
+          <input type="number" id="plan-create-req" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Requests / day">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-tokens">Max tokens / day</label>
+          <input type="number" id="plan-create-tokens" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Max tokens / day">
+        </div>
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-keys">Max API keys</label>
+          <input type="number" id="plan-create-keys" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Max API keys">
+        </div>
+        <div class="field admin-create-features md:col-span-2">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="plan-create-features">Features (comma-separated)</label>
+          <input type="text" id="plan-create-features" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Features (comma-separated)">
+        </div>
+        <button class="btn btn--primary px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 admin-create-features" id="plan-create-btn">Create Plan</button>
+      </div>
+    </details>
+
+    <div class="table-wrapper overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">ID</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Name</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Price</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Req/day</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Tokens/day</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Max Keys</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Features</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400"></th>
+          </tr>
+        </thead>
+        <tbody id="saas-admin-plans-list">
+          <tr><td colspan="8" class="px-3 py-8 text-center text-slate-500 dark:text-slate-400">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="saas-admin-usage" style="display:none">
+    <div class="table-wrapper overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">User ID</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Date</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Requests</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Prompt Tokens</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Completion Tokens</th>
+          </tr>
+        </thead>
+        <tbody id="saas-admin-usage-list">
+          <tr><td colspan="5" class="px-3 py-8 text-center text-slate-500 dark:text-slate-400">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

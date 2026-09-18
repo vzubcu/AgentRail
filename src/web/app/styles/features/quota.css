@@ -1,0 +1,175 @@
+/* =========================================================
+   Quota — Light cards + headroom bars
+   ========================================================= */
+
+.quota-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.9rem;
+  margin-bottom: 1.25rem;
+}
+
+.quota-card {
+  padding: 1.1rem 1.2rem;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(15,23,42,0.05);
+}
+
+.quota-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.quota-card-head strong {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.quota-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+}
+
+.quota-badge.unlimited {
+  color: #16a34a;
+  border: 1px solid rgba(22,163,74,0.2);
+  background: rgba(22,163,74,0.08);
+}
+
+.quota-badge.capped {
+  color: #b45309;
+  border: 1px solid rgba(217,119,6,0.22);
+  background: rgba(217,119,6,0.08);
+}
+
+.quota-metric {
+  margin-top: 0.8rem;
+}
+
+.quota-metric-label {
+  margin-bottom: 0.4rem;
+  font-size: 0.68rem;
+  color: #64748b;
+}
+
+.quota-metric-val {
+  margin-top: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: #475569;
+}
+
+.quota-bar {
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(15,23,42,0.06);
+  overflow: hidden;
+}
+
+.quota-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.3s ease;
+}
+
+.quota-bar-fill.ok { background: #16a34a; }
+.quota-bar-fill.warn { background: #d97706; }
+.quota-bar-fill.danger { background: #dc2626; }
+
+/* ── Editor ── */
+
+.quota-editor {
+  margin-top: 1.25rem;
+  padding: 1.35rem 1.4rem;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 28px rgba(15,23,42,0.05);
+}
+
+.quota-editor h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.quota-editor .muted {
+  margin: 0 0 1rem;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.quota-editor code {
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #2563eb;
+  background: rgba(37,99,235,0.06);
+}
+
+.quota-rows {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.quota-row {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid rgba(15,23,42,0.07);
+  border-radius: 10px;
+  background: rgba(15,23,42,0.02);
+}
+
+.quota-row-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.quota-row label {
+  display: grid;
+  gap: 0.2rem;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.quota-row input {
+  width: 100%;
+  padding: 0.45rem 0.6rem;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: 8px;
+  color: #0f172a;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.quota-row input:focus {
+  outline: none;
+  border-color: rgba(37,99,235,0.4);
+}
+
+@media (max-width: 560px) {
+  .quota-row {
+    grid-template-columns: 1fr;
+  }
+}

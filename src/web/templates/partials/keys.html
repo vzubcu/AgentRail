@@ -1,0 +1,71 @@
+<!-- API Keys Tab -->
+<section id="keys" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Local Configuration</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Configure gateway auth and review provider keys</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-all shadow-sm shadow-indigo-500/25" id="save-keys">
+          Save Configuration
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-8" id="gateway-key-section">
+    <div class="card-header flex items-center justify-between mb-4">
+      <div>
+        <h3 class="card-title font-bold text-slate-900 dark:text-white">Gateway API Key</h3>
+        <p class="card-subtitle hint text-sm text-slate-500 dark:text-slate-400">Downstream clients such as Continue, Cline, and Claude-compatible tools use this key to access AgentRail when they call the gateway directly.</p>
+      </div>
+      <span class="badge badge--accent bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 px-2 py-0.5 rounded text-xs font-medium">Optional</span>
+    </div>
+
+    <div class="field">
+      <label for="gateway-key" class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">AGENTRAIL_API_KEY</label>
+      <input id="gateway-key" type="password" placeholder="Set a gateway key" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors">
+    </div>
+  </div>
+
+  <div class="section-header mb-4">
+    <h2 class="text-lg font-semibold text-slate-900 dark:text-white">Provider Keys Overview</h2>
+    <p class="text-sm text-slate-500 dark:text-slate-400">Open a provider detail page to add or remove provider keys. AgentRail never uses a hosted proxy or shared quota pool.</p>
+  </div>
+
+  <div class="keys-form" id="keys-form">
+    <!-- Dynamic content -->
+  </div>
+</section>
+
+<div class="modal-overlay provider-key-modal" id="provider-key-modal" hidden>
+  <div class="modal-content provider-key-modal-content bg-white dark:bg-slate-900 rounded-2xl shadow-xl max-w-md w-full mx-4" role="dialog" aria-modal="true" aria-labelledby="provider-key-modal-title">
+    <div class="modal-header flex items-center justify-between p-4 border-b border-slate-200/80 dark:border-slate-800/80">
+      <h2 id="provider-key-modal-title" class="text-lg font-semibold text-slate-900 dark:text-white">Add provider key</h2>
+      <button class="modal-close p-1 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors" id="provider-key-modal-close" type="button" aria-label="Close">&times;</button>
+    </div>
+
+    <form id="provider-key-modal-form" class="modal-form p-4 space-y-4">
+      <div class="provider-key-note bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200/50 dark:border-indigo-500/20 rounded-xl p-4" id="provider-key-modal-instructions" hidden>
+        <div class="text-sm font-medium text-indigo-700 dark:text-indigo-300">How to get this API key:</div>
+        <ol id="provider-key-modal-instructions-list" class="mt-2 space-y-1 text-sm text-indigo-600 dark:text-indigo-400"></ol>
+      </div>
+
+      <div class="field">
+        <label for="provider-key-modal-input" class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">API key</label>
+        <input id="provider-key-modal-input" type="password" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" autocomplete="off" placeholder="Paste provider API key">
+      </div>
+
+      <div class="field" id="provider-key-modal-secondary-group" hidden>
+        <label for="provider-key-modal-secondary-input" class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Account ID</label>
+        <input id="provider-key-modal-secondary-input" type="text" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" autocomplete="off" placeholder="Paste provider account ID">
+      </div>
+
+      <div class="form-actions flex justify-end gap-2 pt-2 border-t border-slate-200/80 dark:border-slate-800/80">
+        <button class="btn btn--secondary px-4 py-2 rounded-xl text-sm font-medium border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="provider-key-modal-cancel" type="button">Cancel</button>
+        <button class="btn btn--primary px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25" type="submit">Add key</button>
+      </div>
+    </form>
+  </div>
+</div>

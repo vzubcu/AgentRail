@@ -1,0 +1,157 @@
+<!-- ── SaaS Dashboard Tab (Overview) ── -->
+<section id="saas-dashboard" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Overview</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Gateway status and usage</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- Live status shown in topbar -->
+      </div>
+    </div>
+  </header>
+
+  <!-- Gateway Status Banner -->
+  <div class="bg-gradient-to-r from-indigo-500/5 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-6" data-tilt>
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <span id="control-room-gateway-label" class="px-2 py-0.5 bg-indigo-500 text-white text-[10px] font-bold rounded uppercase tracking-wider">Checking Status</span>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white" id="control-room-gateway-status">Gateway Online</h3>
+      </div>
+      <p id="control-room-gateway-summary" class="text-sm text-slate-500 dark:text-slate-400">Loading provider health...</p>
+    </div>
+    <div class="status-meta-grid" aria-label="Gateway metadata">
+      <div class="text-sm text-slate-500 dark:text-slate-400">
+        <span>Gateway Origin</span>
+        <strong data-endpoint-display="origin">Loading...</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- API Endpoints Panel -->
+  <section class="control-room-panel bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-6" data-tilt>
+    <div class="panel-header mb-4">
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white">API Endpoints</h3>
+    </div>
+    <div class="endpoint-copy-list gap-4">
+      <div class="endpoint-copy-row">
+        <div class="endpoint-copy-meta">
+          <span class="text-sm font-medium text-slate-900 dark:text-white">OpenAI Compatible Endpoint</span>
+          <code data-endpoint-display="openai" class="block text-xs font-mono text-slate-500 dark:text-slate-400 mt-1"></code>
+          <small class="text-xs text-slate-500 dark:text-slate-400">Base URL for OpenAI compatible requests</small>
+        </div>
+        <button class="endpoint-copy-button btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button" data-copy-endpoint-key="openai">Copy</button>
+      </div>
+      <div class="endpoint-copy-row">
+        <div class="endpoint-copy-meta">
+          <span class="text-sm font-medium text-slate-900 dark:text-white">Anthropic Compatible Endpoint</span>
+          <code data-endpoint-display="anthropic" class="block text-xs font-mono text-slate-500 dark:text-slate-400 mt-1"></code>
+          <small class="text-xs text-slate-500 dark:text-slate-400">Endpoint for Anthropic compatible requests</small>
+        </div>
+        <button class="endpoint-copy-button btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button" data-copy-endpoint-key="anthropic">Copy</button>
+      </div>
+    </div>
+    <div class="endpoint-copy-feedback mt-4" id="endpoint-copy-feedback" aria-live="polite"></div>
+  </section>
+
+  <!-- Control Room Metrics (4 cards — filled by saas-dashboard.js + dashboard-overview.js) -->
+  <section id="saas-usage-summary" class="control-room-metrics space-y-4" aria-label="Usage overview">
+    <div class="usage-summary-card control-metric bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 metric-with-sparkline">
+      <div>
+        <div class="usage-summary-title text-sm font-medium text-slate-500 dark:text-slate-400">Today's Requests</div>
+        <div class="usage-summary-value text-2xl font-bold text-slate-900 dark:text-white" id="saas-today-requests">0</div>
+      </div>
+      <span class="sparkline blue" aria-hidden="true"></span>
+    </div>
+
+    <div class="usage-summary-card control-metric bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 metric-with-sparkline">
+      <div>
+        <div class="usage-summary-title text-sm font-medium text-slate-500 dark:text-slate-400">Today's Tokens</div>
+        <div class="usage-summary-value text-2xl font-bold text-slate-900 dark:text-white" id="saas-today-tokens">0</div>
+      </div>
+      <span class="sparkline green" aria-hidden="true"></span>
+    </div>
+
+    <div class="usage-summary-card control-metric bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div>
+        <div class="usage-summary-title text-sm font-medium text-slate-500 dark:text-slate-400">Current Plan</div>
+        <div class="usage-summary-value usage-summary-plan text-xl font-bold text-slate-900 dark:text-white" id="saas-plan-name">Free</div>
+        <small id="control-room-plan-name" class="block text-xs text-slate-500 dark:text-slate-400 mt-1"></small>
+      </div>
+    </div>
+
+    <div class="usage-summary-card control-metric bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div>
+        <div class="usage-summary-title text-sm font-medium text-slate-500 dark:text-slate-400">Requests Used</div>
+        <div class="usage-summary-value text-2xl font-bold text-slate-900 dark:text-white" id="saas-requests-pct">0%</div>
+        <small class="block text-xs text-slate-500 dark:text-slate-400 mt-1">of monthly quota</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Control Room Grid: Providers Health Table (left) + Quick Connect (right) -->
+  <div class="control-room-grid grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+    <!-- Providers Health Panel -->
+    <section class="control-room-panel control-room-panel-primary bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div class="panel-header mb-4">
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Providers Health</h3>
+        <button class="panel-action btn btn--secondary w-full text-left px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button" data-overview-target="providers">View all</button>
+      </div>
+      <div class="table-wrapper">
+        <table class="table providers-health-table w-full" aria-label="Provider health status">
+          <thead>
+            <tr>
+              <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Provider</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Status</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Models</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Success</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Latency</th>
+              <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Last Check</th>
+              <th class="px-3 py-2 text-left"></th>
+            </tr>
+          </thead>
+          <tbody id="control-room-provider-rows">
+            <!-- Rows injected by dashboard-overview.js renderControlRoomStatus() -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Quick Connect CTA Panel -->
+    <aside class="control-room-panel control-room-panel-secondary bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div class="quick-connect-panel text-center">
+        <div class="quick-connect-icon text-2xl mb-4" aria-hidden="true">⚡</div>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-2">Quick Connect</h3>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Spin up a test conversation against any provider + model combo in one step.</p>
+        <button class="btn btn--primary w-full px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25" type="button" data-overview-target="quick-connect">
+          Open Quick Connect
+        </button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Usage History Panel -->
+  <section class="control-room-panel usage-history-panel bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+    <div class="panel-header mb-4">
+      <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Usage History</h3>
+      <button class="panel-action btn btn--secondary w-full text-left px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button" data-overview-target="usage">View details</button>
+    </div>
+    <div class="table-wrapper">
+      <table class="table usage-history-table w-full" aria-label="Daily usage history">
+        <thead>
+          <tr>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Date</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Requests</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Prompt Tokens</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Completion Tokens</th>
+            <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Total Tokens</th>
+          </tr>
+        </thead>
+        <tbody id="saas-usage-history">
+          <!-- Rows injected by saas-dashboard.js loadSaasDashboard() -->
+        </tbody>
+      </table>
+    </div>
+  </section>
+</section>

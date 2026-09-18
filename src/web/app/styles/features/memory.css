@@ -1,0 +1,268 @@
+/* =========================================================
+   Memory — Dark Infra Glass
+   ========================================================= */
+
+.memory-layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 340px) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+@media (max-width: 980px) {
+  .memory-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Form card ── */
+
+.memory-form {
+  position: relative;
+  padding: 1.35rem 1.4rem 1.4rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 rgba(15,23,42,0.025), var(--card-shadow);
+}
+
+.memory-form::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(22,163,74,0.55), transparent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.memory-form-head {
+  margin-bottom: 1rem;
+}
+
+.memory-form-head .section-kicker {
+  margin-bottom: 0.3rem;
+}
+
+.memory-form-head h2 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.memory-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.memory-form .field {
+  display: block;
+  margin-bottom: 0.95rem;
+}
+
+.memory-form-grid .field {
+  margin-bottom: 0;
+}
+
+.memory-form .field span {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.memory-form .field input,
+.memory-form .field textarea {
+  width: 100%;
+  padding: 0.62rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.memory-form .field textarea {
+  resize: vertical;
+}
+
+.memory-form .field input:focus,
+.memory-form .field textarea:focus {
+  outline: none;
+  border-color: rgba(22,163,74,0.4);
+  box-shadow: 0 0 0 3px rgba(22,163,74,0.1);
+}
+
+.memory-form .btn-primary {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+/* ── List ── */
+
+.memory-main {
+  min-width: 0;
+}
+
+.memory-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+  padding: 0.85rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: rgba(15,23,42,0.012);
+}
+
+.memory-toolbar input {
+  flex: 1;
+  min-width: 0;
+  padding: 0.62rem 0.85rem;
+  background: #ffffff;
+  border: 1px solid rgba(15,23,42,0.12);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+}
+
+.memory-toolbar input:focus {
+  outline: none;
+  border-color: rgba(22,163,74,0.32);
+}
+
+.memory-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+/* ── Entry ── */
+
+.memory-entry {
+  position: relative;
+  padding: 1rem 1.1rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 1px 0 rgba(15,23,42,0.025), var(--card-shadow);
+  transition: border-color 0.22s ease, transform 0.22s ease;
+}
+
+.memory-entry::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(22,163,74,0.5), transparent);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.memory-entry:hover {
+  border-color: var(--card-border-hover);
+  transform: translateY(-1px);
+}
+
+.memory-entry-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.memory-session {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: #16a34a;
+  border: 1px solid rgba(22,163,74,0.22);
+  background: rgba(22,163,74,0.06);
+}
+
+.memory-date {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.memory-content {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.memory-entry-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 0.7rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.memory-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.memory-tag {
+  padding: 0.14rem 0.5rem;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.56rem;
+  color: #1d4ed8;
+  border: 1px solid rgba(37,99,235,0.14);
+  background: rgba(37,99,235,0.05);
+}
+
+.memory-del {
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  padding: 0.32rem 0.65rem;
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid rgba(248,113,113,0.3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.memory-del:hover {
+  background: var(--red-dim);
+  color: #fee2e2;
+  border-color: rgba(248,113,113,0.5);
+}
+
+@media (max-width: 560px) {
+  .memory-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .memory-entry-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+}

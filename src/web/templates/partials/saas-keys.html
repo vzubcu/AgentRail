@@ -1,0 +1,50 @@
+<!-- ── SaaS Account Tab ── -->
+<section id="saas-keys" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Account</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Manage your API keys and subscription</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- No persistent actions -->
+      </div>
+    </div>
+  </header>
+
+  <div class="card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-6" id="saas-account-info">
+    <div class="card-header mb-4">
+      <div>
+        <h3 class="card-title text-lg font-semibold text-slate-900 dark:text-white">Plan: <span id="saas-plan-name-2" class="font-normal">—</span></h3>
+        <p class="card-subtitle text-sm text-slate-500 dark:text-slate-400 mt-1">Your current tier determines daily request and token limits.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar mb-6" aria-label="Create API key">
+    <div class="toolbar-main flex flex-wrap gap-2">
+      <input type="text" id="saas-new-key-name" class="field-input flex-1 min-w-[200px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Key name (e.g. CI, dev)" aria-label="Key name">
+      <input type="text" id="saas-new-key-scopes" class="field-input flex-1 min-w-[200px] px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" placeholder="Scopes: chat, vision, image_generation" aria-label="Key scopes">
+      <button class="btn btn--primary px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25" id="saas-create-key">Create API Key</button>
+    </div>
+  </div>
+
+  <div class="table-wrapper overflow-x-auto">
+    <table class="table w-full">
+      <thead>
+        <tr>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Name</th>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Key</th>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Scopes</th>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Created</th>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Last Used</th>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Status</th>
+          <th class="px-3 py-2 text-left text-xs font-medium text-slate-500 dark:text-slate-400">Action</th>
+        </tr>
+      </thead>
+      <tbody id="saas-keys-list">
+        <tr><td colspan="7" class="px-3 py-8 text-center text-slate-500 dark:text-slate-400">No API keys yet. Create one above.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>

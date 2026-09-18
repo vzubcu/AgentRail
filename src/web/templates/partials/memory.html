@@ -1,0 +1,124 @@
+<!-- Memory Tab -->
+<section id="memory" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker">Persistent Memory</span>
+        <h1 class="page-title">Conversational memory with search.</h1>
+        <p class="page-description">Store notes, decisions, and context. Search across all entries with token + tag matching.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- No persistent actions -->
+      </div>
+    </div>
+  </header>
+
+  <div class="memory-layout">
+    <form class="card memory-form bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-6" id="memory-form">
+      <div class="card-header mb-4">
+        <div>
+          <h2 class="card-title">Save a Memory</h2>
+        </div>
+      </div>
+
+      <div class="memory-form-grid grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="field">
+          <label for="memory-session" class="field-label">Session</label>
+          <input type="text" id="memory-session" class="field-input" placeholder="default" />
+        </div>
+        <div class="field">
+          <label for="memory-tags" class="field-label">Tags (comma separated)</label>
+          <input type="text" id="memory-tags" class="field-input" placeholder="project, decision" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="memory-content" class="field-label">Content</label>
+        <textarea id="memory-content" class="field-input" rows="4" placeholder="What should AgentRail remember?"></textarea>
+      </div>
+
+      <button class="btn btn--primary" type="submit">Save Memory</button>
+    </form>
+
+    <div class="memory-main">
+      <div class="toolbar" aria-label="Memory actions">
+        <div class="toolbar-main flex flex-wrap gap-2">
+          <input type="search" id="memory-search" placeholder="Search memory…" aria-label="Search memory" class="field-input w-full md:w-auto px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors">
+          <button class="btn btn--secondary" type="button" id="memory-refresh">Refresh</button>
+        </div>
+      </div>
+      <div class="memory-list" id="memory-list">
+        <p class="empty">No memories yet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const list = document.getElementById('memory-list');
+    const form = document.getElementById('memory-form');
+    const search = document.getElementById('memory-search');
+    const refreshBtn = document.getElementById('memory-refresh');
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+
+    function entryEl(entry) {
+      const el = document.createElement('div');
+      el.className = 'memory-entry bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mb-4';
+      const tags = (entry.tags || []).map((t) => `<span class="memory-tag">${esc(t)}</span>`).join('');
+      el.innerHTML = `
+        <div class="memory-entry-head flex items-center justify-between mb-2">
+          <span class="memory-session">${esc(entry.session)}</span>
+          <span class="memory-date">${new Date(entry.updatedAt).toLocaleString()}</span>
+        </div>
+        <p class="memory-content">${esc(entry.content)}</p>
+        <div class="memory-entry-foot flex items-center justify-between mt-4">
+          <div class="memory-tags">${tags}</div>
+          <button class="btn btn--danger btn--sm memory-del" type="button">Delete</button>
+        </div>`;
+      el.querySelector('.memory-del').addEventListener('click', async () => {
+        await fetch(`/api/memory/${encodeURIComponent(entry.id)}`, { method: 'DELETE' });
+        load();
+      });
+      return el;
+    }
+
+    async function load() {
+      const q = search.value.trim();
+      const url = q ? `/api/memory?q=${encodeURIComponent(q)}` : '/api/memory';
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        list.innerHTML = '';
+        (data.entries || []).forEach((e) => list.appendChild(entryEl(e)));
+        if (!data.entries?.length) {
+          list.innerHTML = '<p class="empty">No memories found.</p>';
+        }
+      } catch (err) {
+        list.innerHTML = '<p class="empty">Failed to load memory.</p>';
+      }
+    }
+
+    form.addEventListener('submit', async (ev) => {
+      ev.preventDefault();
+      const content = document.getElementById('memory-content').value.trim();
+      if (!content) return;
+      const session = document.getElementById('memory-session').value.trim();
+      const tags = document.getElementById('memory-tags').value.split(',').map((t) => t.trim()).filter(Boolean);
+      await fetch('/api/memory', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content, session, tags }),
+      });
+      form.reset();
+      load();
+    });
+
+    search.addEventListener('input', load);
+    refreshBtn.addEventListener('click', load);
+    load();
+  })();
+</script>

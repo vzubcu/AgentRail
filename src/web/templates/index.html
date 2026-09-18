@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentRail — AI Access Dashboard</title>
+</head>
+
+<body>
+  <div class="app-shell">
+    <section class="public-shell" id="public-shell">
+      <div class="public-hero">
+        <div class="public-copy">
+          <div class="public-eyebrow">AgentRail</div>
+          <h1>One admin dashboard for routing AI access across active providers.</h1>
+          <p>Manage provider health, active models, API keys, usage, and test traffic from one authenticated workspace.</p>
+          <div class="public-points">
+            <span>Active model catalog</span>
+            <span>Admin-only controls</span>
+            <span>OpenAI and Anthropic compatible</span>
+          </div>
+        </div>
+
+        <div class="public-auth-panel">
+          <div class="public-auth-header">
+            <div class="public-auth-title">Admin Sign In</div>
+            <div class="public-auth-subtitle">Use the seeded admin account to enter the platform.</div>
+          </div>
+
+          <form id="auth-login-form" class="public-auth-form">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" id="auth-email" placeholder="Configured admin email" autocomplete="email" value="admin@agentrail.com">
+            </div>
+
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="auth-password" placeholder="Configured admin password" autocomplete="current-password" value="supersecretpassword">
+            </div>
+
+            <button class="btn-primary public-auth-button" id="auth-login-btn" type="submit">Sign In</button>
+            <div id="auth-error" class="auth-error" style="display:none"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <link rel="stylesheet" href="/static/dist/app.css">
+  <script type="module" src="/static/dist/app.js"></script>
+</body>
+</html>

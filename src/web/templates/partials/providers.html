@@ -1,0 +1,58 @@
+<!-- Providers Tab -->
+<section id="providers" class="tab-content">
+  <header class="page-header glass-header border border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Providers & BYOK</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Connect and monitor provider routes</h1>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Browse every configured AgentRail provider, manage local keys, and test route health.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-2">
+        <button class="btn btn--secondary px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700/80 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" type="button" data-refresh-models data-refresh-label="Refresh Models">
+          Refresh Models
+        </button>
+        <button class="btn btn--primary px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-semibold transition-all shadow-sm shadow-indigo-500/25" id="check-all-health" type="button">
+          Test All Providers
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="info-banner bg-gradient-to-r from-indigo-500/5 via-violet-500/5 to-transparent border border-indigo-500/20 rounded-2xl p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 mb-8">
+    <div class="space-y-1">
+      <div class="flex items-center gap-2">
+        <span class="px-2 py-0.5 bg-indigo-500 text-white text-[10px] font-bold rounded uppercase tracking-wider">Zero-Data Retention</span>
+        <h3 class="text-base font-bold text-slate-900 dark:text-white">Your API Key Architecture</h3>
+      </div>
+      <p class="text-sm text-slate-500 dark:text-slate-400">Provider keys stay local to this AgentRail instance. Use the provider cards below to add, rotate, or test keys.</p>
+    </div>
+  </div>
+
+  <div id="provider-list-view" class="provider-list-view">
+    <div class="toolbar mb-5" aria-label="Provider filters">
+      <div class="toolbar-main flex flex-col gap-3 md:flex-row md:items-center">
+        <input type="text" id="provider-search" placeholder="Search providers, base URLs, env vars..." aria-label="Search providers" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors">
+        <select id="provider-state-filter" aria-label="Provider state filter" class="md:w-56 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 px-2.5 py-2 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors">
+          <option value="all">All states</option>
+          <option value="healthy">Healthy</option>
+          <option value="configured">Configured</option>
+          <option value="unhealthy">Unhealthy</option>
+          <option value="missing_key">Missing key</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-wider">Provider Routes</h3>
+      <span class="text-xs text-slate-400">Live data from <code>/api/catalog</code></span>
+    </div>
+
+    <div class="providers-grid" id="providers-grid">
+      <!-- Dynamic provider cards render here -->
+    </div>
+  </div>
+
+  <div id="provider-detail-view" class="provider-detail-view" hidden>
+    <!-- Dynamic provider detail renders here -->
+  </div>
+</section>

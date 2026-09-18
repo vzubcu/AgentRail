@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Virtual Model - AgentRail</title>
+  <link rel="stylesheet" href="/static/dist/app.css">
+</head>
+<body>
+  <div class="app-shell">
+    <div class="dashboard-container">
+      <div class="dashboard-header">
+        <h1>Edit Virtual Model</h1>
+        <div class="dashboard-actions">
+          <button id="vm-back-btn" class="btn-secondary">Back to List</button>
+        </div>
+      </div>
+
+      <div class="dashboard-content" id="virtual-models-content">
+        <div class="form-container">
+          <form id="vm-edit-form">
+            <div class="form-section">
+              <h2>Model Information</h2>
+              <div class="form-group">
+                <label for="vm-field-id">ID</label>
+                <input type="text" id="vm-field-id" placeholder="Unique identifier">
+              </div>
+              <div class="form-group">
+                <label for="vm-field-name">Name</label>
+                <input type="text" id="vm-field-name" placeholder="Display name">
+              </div>
+              <div class="form-group">
+                <label for="vm-field-description">Description</label>
+                <textarea id="vm-field-description" placeholder="Brief description"></textarea>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Routing Configuration</h2>
+              <div class="form-group">
+                <label for="vm-field-strategy">Routing Strategy</label>
+                <select id="vm-field-strategy">
+                  <option value="priority">Priority</option>
+                  <option value="weighted">Weighted</option>
+                  <option value="round-robin">Round Robin</option>
+                  <option value="fill-first">Fill First</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="vm-field-sticky-mode">Sticky Mode</label>
+                <select id="vm-field-sticky-mode">
+                  <option value="none">None</option>
+                  <option value="request-key">Request Key</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>System Prompt</h2>
+              <div class="form-group">
+                <label for="vm-field-system-prompt-select">Select Prompt</label>
+                <select id="vm-field-system-prompt-select">
+                  <option value="">— Custom —</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="vm-field-system-prompt">System Prompt</label>
+                <textarea id="vm-field-system-prompt" placeholder="System prompt content"></textarea>
+              </div>
+              <button type="button" id="vm-manage-system-prompts" class="btn-secondary">Manage System Prompts</button>
+            </div>
+
+            <div class="form-section">
+              <h2>Capabilities</h2>
+              <div class="capabilities-grid" id="vm-capabilities-grid">
+                <!-- Capabilities will be rendered here -->
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Auto Aliases</h2>
+              <div class="form-group">
+                <label for="vm-field-aliases">Add Alias</label>
+                <input type="text" id="vm-field-aliases" placeholder="Type and press Enter">
+              </div>
+              <div id="vm-tag-list" class="tag-list"></div>
+            </div>
+
+            <div class="form-section">
+              <h2>Auto Protection</h2>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="vm-field-auto-protection-enabled" checked>
+                  Enable Auto Protection
+                </label>
+              </div>
+              <div class="form-group">
+                <label for="vm-field-failure-threshold">Failure Threshold</label>
+                <input type="number" id="vm-field-failure-threshold" value="3" min="1">
+              </div>
+              <div class="form-group">
+                <label for="vm-field-cooldown-ms">Cooldown (ms)</label>
+                <input type="number" id="vm-field-cooldown-ms" value="600000" min="1000">
+              </div>
+            </div>
+
+            <div class="form-section">
+              <h2>Selected Models</h2>
+              <div class="filter-controls">
+                <div class="form-group">
+                  <label for="vm-filter-provider">Filter by Provider</label>
+                  <select id="vm-filter-provider">
+                    <option value="">All Providers</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="vm-filter-capabilities">Filter by Capabilities</label>
+                  <select id="vm-filter-capabilities">
+                    <option value="">All Capabilities</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="vm-filter-context">Filter by Context Length</label>
+                  <select id="vm-filter-context">
+                    <option value="">All Context Lengths</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="vm-model-add-provider">Add Model</label>
+                <select id="vm-model-add-provider">
+                  <option value="">— Select model —</option>
+                </select>
+              </div>
+
+              <div id="vm-model-list" class="model-list">
+                <!-- Selected models will be rendered here -->
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="button" id="vm-form-save" class="btn-primary">Save</button>
+              <div id="vm-form-feedback" class="vm-form-feedback"></div>
+            </div>
+          </form>
+        </div>
+
+        <div class="preview-panel" id="vm-preview-panel">
+          <!-- Preview content will be rendered here -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/static/dist/virtual-models-edit.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+# Created by https://www.toptal.com/developers/gitignore/api/dotnet,cmake,cmake-cache,cmake-generated,cmake-dependencies,cmake-modules,cmake-obj,cmake-reports,cmake-scripts,cmake-upload-info,cmake-temp,cmake-ide,cmake-runtime,cmake-ide-debug,cmake-build-vscode,.vscode,visualstudiocode,.vscode-test,.vscode-remote
+
+# Ignore compiled binaries
+/dist
+**/dist
+*.tsbuildinfo
+
+# Ignore TypeScript cache
+.tsc-compilation-settings.json
+*.tsbuildinfo
+
+# Ignore test artifacts
+coverage
+.vitest
+
+# Ignore editor settings
+.idea
+.*.swp
+*.swo
+.*.swd
+
+# Ignore OS metadata
+.DS_Store
+Thumbs.db
+
+# Ignore npm modules if present (some projects may have them at root)
+node_modules
+**/node_modules
+
+# Ignore database files (don't add *.sqlite to gitignore)
+*.db
+*.sqlite
+*.sqlite3
+
+# Ignore downloaded binaries/executables
+*.exe
+*.dll
+*.so
+
+# Ignore build directories
+/build
+/out
+/.next
+/.parcel-cache
+/.cache
+
+# Ignore logs
+*.log
+logs/**/*.log
+**/npm-cache/**/logs/*.log
+
+# Ignore local environment and secret files
+.env
+.env.*
+!.env.example
+
+# Ignore local runtime state and generated credentials
+.agentrail/
+.graphify/
+graphify-out/
+
+# Ignore local agent/tool state that can contain personal settings or tokens
+.agents/
+.claude/
+.codex/
+.codex-tmp/
+.playwright-mcp/
+
+# Ignore local temp artifacts and machine-specific config
+.tmp-dist/
+.tmp-*
+_tmp_*
+.npmrc
+agentrail-*.png
+
+# Ignore secret files and private keys / certificates
+*.pem
+*.p12
+*.pfx
+*.key
+*.crt
+*.cer
+*.jks
+*.keystore
+*.asc
+*.gpg
+
+# Ignore local machine-specific config files (non-standard extras)
+*.local
+**/*.local.json
+**/*.local.yaml
+**/*.local.yml

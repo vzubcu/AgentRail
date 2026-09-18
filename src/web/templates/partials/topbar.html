@@ -1,0 +1,17 @@
+<!-- Top App Bar / Breadcrumb Header -->
+<header class="agentrail-topbar h-16 bg-white/80 dark:bg-slate-900/80 glass-header border-b border-slate-200/80 dark:border-slate-800/80 flex items-center justify-between px-8 flex-shrink-0 z-10">
+  <div class="flex items-center gap-3 text-sm">
+    <span class="text-slate-400" id="breadcrumb-section">Workspace</span>
+    <span class="text-slate-300 dark:text-slate-700">/</span>
+    <span class="font-bold text-slate-900 dark:text-white" id="breadcrumb-current">Overview</span>
+  </div>
+  
+  <div class="flex items-center gap-3">
+    <button onclick="toggleTheme()" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700/80 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 transition-all shadow-2xs" type="button" aria-label="Toggle theme">
+      <span id="theme-icon">🌙</span>
+    </button>
+    <button id="add-byok-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-all shadow-sm shadow-indigo-500/25 flex items-center gap-2 group" type="button" style="display:none">
+      <span class="group-hover:rotate-90 transition-transform duration-200">+</span> Add BYOK Key
+    </button>
+  </div>
+</header>

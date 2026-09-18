@@ -1,0 +1,431 @@
+/* =========================================================
+   MCP Servers — Dark Infra Glass (matches route-health-card)
+   ========================================================= */
+
+.mcp-servers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+@media (max-width: 1200px) {
+  .mcp-servers-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .mcp-servers-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ── */
+
+.mcp-server-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 1px 0 rgba(15,23,42,0.025), var(--card-shadow);
+  transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
+}
+
+.mcp-server-card::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(15,23,42,0.1), transparent);
+  opacity: 0.68;
+  pointer-events: none;
+}
+
+.mcp-server-card.enabled {
+  box-shadow: inset 2px 0 0 rgba(22,163,74,0.38), inset 0 1px 0 rgba(15,23,42,0.025), var(--card-shadow);
+}
+
+.mcp-server-card.enabled::before {
+  background: linear-gradient(90deg, transparent, rgba(22,163,74,0.6), transparent);
+}
+
+.mcp-server-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--card-border-hover);
+  box-shadow: inset 2px 0 0 rgba(22,163,74,0.3), inset 0 1px 0 rgba(15,23,42,0.04), var(--card-shadow-hover);
+}
+
+.mcp-server-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Header ── */
+
+.mcp-server-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.95rem 1rem 0.8rem;
+}
+
+.mcp-server-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.mcp-server-identity h4 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mcp-server-icon {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  background: rgba(15,23,42,0.025);
+  border: 1px solid var(--border-subtle);
+}
+
+.mcp-server-icon.active {
+  color: #16a34a;
+  background: rgba(22,163,74,0.06);
+  border-color: rgba(22,163,74,0.18);
+}
+
+.mcp-server-icon.inactive {
+  color: var(--text-muted);
+  background: rgba(15,23,42,0.018);
+}
+
+.mcp-server-status {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  font-family: var(--font-sans);
+  font-size: 0.56rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--border-subtle);
+}
+
+.mcp-server-status.active {
+  color: #16a34a;
+  border-color: rgba(22,163,74,0.22);
+  background: rgba(22,163,74,0.06);
+}
+
+.mcp-server-status.inactive {
+  color: var(--text-muted);
+  background: rgba(15,23,42,0.02);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #565e69;
+}
+
+.status-dot.active {
+  background: #16a34a;
+  box-shadow: 0 0 10px rgba(22,163,74,0.5);
+}
+
+/* ── Endpoint ── */
+
+.mcp-server-endpoint {
+  margin: 0 1rem 0.7rem;
+  padding: 0.6rem 0.7rem;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: center;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: var(--surface-bg);
+  backdrop-filter: blur(4px);
+}
+
+.mcp-server-endpoint span {
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  color: #7f8394;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.mcp-server-endpoint code {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--text-secondary);
+}
+
+/* ── Tools / Resources ── */
+
+.mcp-server-tools,
+.mcp-server-resources {
+  margin: 0 1rem 0.7rem;
+}
+
+.mcp-server-section-label {
+  font-family: var(--font-sans);
+  font-size: 0.5rem;
+  color: #7f8394;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.tool-tag,
+.resource-tag {
+  display: inline-block;
+  padding: 0.16rem 0.5rem;
+  margin: 0 0.3rem 0.3rem 0;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 0.56rem;
+  color: var(--text-secondary);
+  background: rgba(15,23,42,0.02);
+  border: 1px solid var(--surface-border);
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.tool-tag:hover,
+.resource-tag:hover {
+  border-color: var(--border-active);
+  color: var(--text-primary);
+}
+
+.resource-tag {
+  color: #1d4ed8;
+  border-color: rgba(37,99,235,0.14);
+  background: rgba(37,99,235,0.05);
+}
+
+.tool-tag.more,
+.resource-tag.more {
+  border-style: dashed;
+  color: var(--text-muted);
+}
+
+/* ── Description ── */
+
+.mcp-server-description {
+  margin: 0 1rem 0.7rem;
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+/* ── Meta ── */
+
+.mcp-server-meta {
+  margin: 0 1rem 0.8rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.4rem;
+}
+
+.mcp-server-meta div {
+  padding: 0.5rem 0.55rem;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-sm);
+  background: rgba(15,23,42,0.014);
+  min-width: 0;
+}
+
+.mcp-server-meta span {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.48rem;
+  color: #7f8394;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.15rem;
+}
+
+.mcp-server-meta strong {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Actions ── */
+
+.mcp-server-actions {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--border-subtle);
+  background: rgba(15,23,42,0.008);
+}
+
+.mcp-server-actions .secondary-button,
+.mcp-server-actions .danger-button,
+.mcp-server-actions .primary-button {
+  padding: 0.4rem 0.7rem;
+  font-size: 0.6rem;
+}
+
+/* ── Empty state ── */
+
+.empty-state {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(15,23,42,0.02), rgba(15,23,42,0.006)),
+    rgba(18,18,24,0.62);
+}
+
+.empty-state p {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  margin-bottom: 1.1rem;
+}
+
+/* =========================================================
+   Buttons + Modal (MCP-exclusive class names)
+   ========================================================= */
+
+.primary-button {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  background: var(--green);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.primary-button:hover {
+  background: #15803d;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 28px rgba(22,163,74,0.2);
+}
+
+.secondary-button {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  padding: 0.48rem 0.95rem;
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.secondary-button:hover {
+  border-color: var(--border-active);
+  color: var(--text-primary);
+  background: rgba(15,23,42,0.03);
+}
+
+.danger-button {
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 500;
+  padding: 0.48rem 0.95rem;
+  background: transparent;
+  color: #dc2626;
+  border: 1px solid rgba(248,113,113,0.3);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.danger-button:hover {
+  background: var(--red-dim);
+  color: #fee2e2;
+  border-color: rgba(248,113,113,0.5);
+}
+
+.modal-card {
+  width: 100%;
+  max-width: 520px;
+  padding: 1.6rem 1.7rem 1.7rem;
+  background:
+    linear-gradient(180deg, rgba(15,23,42,0.03), rgba(15,23,42,0.008)),
+    rgba(12,12,16,0.98);
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(15,23,42,0.06);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.modal-card-header h3 {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.modal-card-header .modal-close {
+  flex: 0 0 auto;
+}
+
+.modal-body-text {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}

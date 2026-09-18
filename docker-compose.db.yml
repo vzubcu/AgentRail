@@ -1,0 +1,16 @@
+services:
+  agentrail-postgres:
+    image: postgres:16-alpine
+    container_name: agentrail-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${AGENTRAIL_SECRETS_DB_NAME:-agentrail}
+      POSTGRES_USER: ${AGENTRAIL_SECRETS_DB_USER:-agentrail}
+      POSTGRES_PASSWORD: ${AGENTRAIL_SECRETS_DB_PASSWORD:-agentrail_dev_password}
+    volumes:
+      - agentrail-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  agentrail-postgres-data:

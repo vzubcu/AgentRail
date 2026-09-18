@@ -1,0 +1,54 @@
+<!-- Usage Tab -->
+<section id="usage" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Usage</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Request and token usage by model and provider</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-500/10 text-red-600 dark:text-red-400 text-sm font-medium hover:text-red-500 dark:hover:text-red-300 transition-all" id="clear-usage">
+          Clear Usage
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="usage-summary" id="usage-summary" aria-label="Usage totals">
+    <div class="usage-summary-card card">
+      <div class="usage-summary-title">Total Calls</div>
+      <div class="usage-summary-value" id="usage-total-calls">0</div>
+    </div>
+    <div class="usage-summary-card card">
+      <div class="usage-summary-title">Prompt Tokens</div>
+      <div class="usage-summary-value" id="usage-total-prompt-tokens">0</div>
+    </div>
+    <div class="usage-summary-card card">
+      <div class="usage-summary-title">Completion Tokens</div>
+      <div class="usage-summary-value" id="usage-total-completion-tokens">0</div>
+    </div>
+    <div class="usage-summary-card card">
+      <div class="usage-summary-title">Total Tokens</div>
+      <div class="usage-summary-value highlight" id="usage-total-tokens">0</div>
+    </div>
+  </section>
+
+  <div class="table-wrapper">
+    <table class="table usage-table" id="usage-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Provider</th>
+          <th class="numeric">Calls</th>
+          <th class="numeric">Prompt Tokens</th>
+          <th class="numeric">Completion Tokens</th>
+          <th class="numeric">Total Tokens</th>
+          <th>Last Used</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Dynamic content -->
+      </tbody>
+    </table>
+  </div>
+</section>

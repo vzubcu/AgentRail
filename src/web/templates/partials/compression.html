@@ -1,0 +1,111 @@
+<!-- Compression Tab -->
+<section id="compression" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker">Compression</span>
+        <h1 class="page-title">Trim request context before it reaches providers.</h1>
+        <p class="page-description">Reduce token usage and cost by dropping old messages or truncating long text parts. Changes apply to all routed requests.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="btn btn--primary" id="compression-save">Save Settings</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+    <div class="card-header mb-4">
+      <div>
+        <h2 class="card-title">Compression Rules</h2>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="compression-mode">Mode</label>
+      <select id="compression-mode" class="field-input">
+        <option value="none">None (pass through)</option>
+        <option value="drop_oldest">Drop Oldest Messages</option>
+        <option value="truncate">Truncate Long Text</option>
+      </select>
+    </div>
+
+    <div class="field" id="opt-keep-last">
+      <label class="field-label" for="compression-keep">Keep last N non-system messages</label>
+      <input id="compression-keep" class="field-input" type="number" min="0" step="1" value="10" />
+    </div>
+
+    <div class="field" id="opt-max-chars">
+      <label class="field-label" for="compression-maxchars">Max characters per text part</label>
+      <input id="compression-maxchars" class="field-input" type="number" min="0" step="100" value="4000" />
+    </div>
+
+    <label class="field-checkbox flex items-center gap-2">
+      <input id="compression-preserve-system" type="checkbox" checked />
+      <span>Always preserve system messages</span>
+    </label>
+
+    <p class="field-status" id="compression-status" aria-live="polite"></p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const modeEl = document.getElementById('compression-mode');
+    const keepEl = document.getElementById('compression-keep');
+    const maxCharsEl = document.getElementById('compression-maxchars');
+    const preserveEl = document.getElementById('compression-preserve-system');
+    const statusEl = document.getElementById('compression-status');
+    const saveBtn = document.getElementById('compression-save');
+    const optKeep = document.getElementById('opt-keep-last');
+    const optMax = document.getElementById('opt-max-chars');
+
+    function syncVisibility() {
+      const mode = modeEl.value;
+      optKeep.style.display = mode === 'drop_oldest' ? '' : 'none';
+      optMax.style.display = mode === 'truncate' ? '' : 'none';
+    }
+
+    async function load() {
+      try {
+        const res = await fetch('/api/compression');
+        const data = await res.json();
+        const cfg = data.config || {};
+        modeEl.value = cfg.mode || 'none';
+        keepEl.value = cfg.keepLastN ?? 10;
+        maxCharsEl.value = cfg.maxCharsPerPart ?? 4000;
+        preserveEl.checked = cfg.preserveSystem !== false;
+        syncVisibility();
+      } catch (err) {
+        statusEl.textContent = 'Failed to load settings.';
+        statusEl.className = 'field-status error';
+      }
+    }
+
+    saveBtn.addEventListener('click', async () => {
+      const payload = {
+        config: {
+          mode: modeEl.value,
+          keepLastN: Number(keepEl.value) || 0,
+          maxCharsPerPart: Number(maxCharsEl.value) || 0,
+          preserveSystem: preserveEl.checked,
+        },
+      };
+      try {
+        const res = await fetch('/api/compression', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) throw new Error('save failed');
+        statusEl.textContent = 'Saved.';
+        statusEl.className = 'field-status success';
+      } catch (err) {
+        statusEl.textContent = 'Save failed.';
+        statusEl.className = 'field-status error';
+      }
+    });
+
+    modeEl.addEventListener('change', syncVisibility);
+    load();
+  })();
+</script>

@@ -1,0 +1,84 @@
+<!-- Test Tab -->
+<section id="test" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Route Test</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Send a multimodal test chat through AgentRail</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- No persistent actions -->
+      </div>
+    </div>
+  </header>
+
+  <div class="test-grid">
+    <div class="card test-form bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div class="card-header mb-4">
+        <div>
+          <h2 class="card-title text-xl font-bold text-slate-900 dark:text-white">Compose</h2>
+        </div>
+      </div>
+
+      <div class="field mb-4">
+        <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="test-provider-filter">Provider</label>
+        <select id="test-provider-filter" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors">
+          <option value="all">All providers</option>
+        </select>
+      </div>
+
+      <div class="field mb-4">
+        <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="test-model">Model</label>
+        <select id="test-model" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors"></select>
+      </div>
+
+      <div class="field mb-4">
+        <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="test-message">Message</label>
+        <textarea id="test-message" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" rows="5" placeholder="Write the next user turn..."></textarea>
+      </div>
+
+      <div class="field mb-4">
+        <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="test-attachments">Attachments</label>
+        <div class="test-attachment-picker">
+          <input type="file" id="test-attachments" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" accept="image/png,image/jpeg,image/webp,image/gif,application/pdf" multiple>
+          <small class="field-hint block text-xs text-slate-500 dark:text-slate-400 mt-1">Images are sent inline. PDFs are extracted to text by the gateway.</small>
+        </div>
+        <div class="test-attachment-queue" id="test-attachment-queue"></div>
+      </div>
+
+      <div class="form-row mb-4">
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="test-temp">Temperature</label>
+          <input type="number" id="test-temp" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" value="0.7" min="0" max="2" step="0.1">
+        </div>
+
+        <div class="field">
+          <label class="field-label block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1" for="test-max-tokens">Max Tokens</label>
+          <input type="number" id="test-max-tokens" class="field-input w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" value="1024" min="1">
+        </div>
+      </div>
+
+      <label class="field-checkbox flex items-center mb-4">
+        <input type="checkbox" id="test-stream" checked class="h-4 w-4 text-indigo-600 border-indigo-300 rounded focus:ring-indigo-500 dark:focus:ring-indigo-600">
+        <span class="ml-2 text-sm font-medium text-slate-700 dark:text-slate-300">Stream response</span>
+      </label>
+
+      <div class="test-actions flex justify-end gap-2">
+        <button class="btn btn--secondary px-4 py-2 rounded-xl text-sm font-medium border border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="test-clear-thread" type="button">Clear Thread</button>
+        <button class="btn btn--primary px-4 py-2 rounded-xl text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25" id="send-test" type="button">Send Request</button>
+      </div>
+    </div>
+
+    <div class="card test-result bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6" id="test-result">
+      <div class="card-header mb-4">
+        <div>
+          <h2 class="card-title text-xl font-bold text-slate-900 dark:text-white">Thread + Response</h2>
+          <p class="card-subtitle text-sm text-slate-500 dark:text-slate-400">OpenAI-compatible payloads via the local gateway</p>
+        </div>
+      </div>
+      <div class="route-info" id="route-info"></div>
+      <div class="test-thread" id="test-thread"></div>
+      <pre id="result-content" class="mt-4 bg-slate-50 dark:bg-slate-950/50 p-4 rounded-lg overflow-auto text-sm font-mono"></pre>
+    </div>
+  </div>
+</section>

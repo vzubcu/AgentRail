@@ -1,0 +1,32 @@
+<!-- Quota Tab -->
+<section id="quota" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker">Quota Sharing Engine</span>
+        <h1 class="page-title">Provider quotas & headroom.</h1>
+        <p class="page-description">Set monthly request/token caps per provider and watch remaining headroom in real time.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="btn btn--secondary" type="button" id="quota-refresh">Refresh</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="quota-grid" id="quota-grid">
+    <p class="empty">Loading quota…</p>
+  </div>
+
+  <div class="card quota-editor bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6 mt-6">
+    <div class="card-header mb-4">
+      <div>
+        <h2 class="card-title">Edit Quotas</h2>
+        <p class="card-subtitle">Enter 0 for unlimited. Changes persist to <code>.agentrail/quota.json</code>.</p>
+      </div>
+    </div>
+    <form class="quota-form" id="quota-form">
+      <div class="quota-rows" id="quota-rows"></div>
+      <button class="btn btn--primary" type="submit">Save Quotas</button>
+    </form>
+  </div>
+</section>

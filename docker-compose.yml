@@ -1,0 +1,68 @@
+services:
+  agentrail-postgres:
+    image: postgres:16-alpine
+    container_name: agentrail-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${AGENTRAIL_SECRETS_DB_NAME:-agentrail}
+      POSTGRES_USER: ${AGENTRAIL_SECRETS_DB_USER:-agentrail}
+      POSTGRES_PASSWORD: ${AGENTRAIL_SECRETS_DB_PASSWORD:-agentrail_dev_password}
+    volumes:
+      - agentrail-postgres-data:/var/lib/postgresql/data
+    networks:
+      - gateway-llm-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: agentrail-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - agentrail-redis-data:/data
+    networks:
+      - gateway-llm-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  gateway-llm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gateway-llm
+    restart: unless-stopped
+    env_file:
+      - path: ./.env
+        required: false
+    ports:
+      - "42424:42424"
+    environment:
+      HOST: 0.0.0.0
+      AGENTRAIL_DEBUG_TRACE: ${AGENTRAIL_DEBUG_TRACE:-1}
+      AGENTRAIL_ALLOW_INSECURE_PROXY_TLS: ${AGENTRAIL_ALLOW_INSECURE_PROXY_TLS:-1}
+      AGENTRAIL_PROVIDER_TIMEOUT_MS: ${AGENTRAIL_PROVIDER_TIMEOUT_MS:-30000}
+      AGENTRAIL_SECRETS_DATABASE_URL: ${AGENTRAIL_SECRETS_DATABASE_URL:-postgresql://agentrail:agentrail_dev_password@agentrail-postgres:5432/agentrail}
+      AGENTRAIL_SECRET_ENCRYPTION_KEY: ${AGENTRAIL_SECRET_ENCRYPTION_KEY:-agentrail-local-dev-secret-key}
+      REDIS_URL: redis://redis:6379
+      AGENTRAIL_REDIS_URL: redis://redis:6379
+    volumes:
+      - ./.agentrail:/app/.agentrail
+    networks:
+      - gateway-llm-network
+    depends_on:
+      - agentrail-postgres
+      - redis
+       
+networks:
+  gateway-llm-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.51.0.0/16
+
+volumes:
+  agentrail-postgres-data:
+  agentrail-redis-data:

@@ -1,0 +1,2 @@
+/* Legacy stylesheet entrypoint retained only as a compatibility marker.
+   Active app styles now build from src/web/app/styles/main.css into /static/dist/app.css. */

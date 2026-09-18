@@ -1,0 +1,77 @@
+/* ────────────────────────────────────────────────────────────────────────
+   OVERVIEW FEATURE — Minimal styles (Dashboard shell owns the visuals)
+   This file only handles tab visibility and any feature-specific utilities
+   not covered by dashboard-shell.css
+   ──────────────────────────────────────────────────────────────────────── */
+
+/* Tab visibility — controlled by router.js activateTab() */
+#saas-dashboard {
+  display: none;
+}
+
+#saas-dashboard.active {
+  display: block;
+  animation: tab-in var(--duration-base) var(--ease-out);
+}
+
+@keyframes tab-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Health summary cards (rendered by dashboard-overview.js renderHealthSummary)
+   These are used in the Providers tab as well, so keep them here. */
+.summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem;
+  border: 1px solid var(--border-panel);
+  border-radius: var(--radius-lg);
+  background: var(--glass-bg);
+  backdrop-filter: saturate(1.6) blur(16px);
+  -webkit-backdrop-filter: saturate(1.6) blur(16px);
+  box-shadow: var(--glass-shadow);
+}
+
+.summary-card .summary-value {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.summary-card .summary-label {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.summary-card.healthy .summary-value { color: var(--green); }
+.summary-card.unhealthy .summary-value { color: var(--red); }
+.summary-card.configured .summary-value { color: var(--blue); }
+.summary-card.missing_key .summary-value { color: var(--amber); }
+
+/* Health summary meta line */
+#health-summary {
+  margin-top: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Reduced motion for tab transition */
+@media (prefers-reduced-motion: reduce) {
+  #saas-dashboard.active {
+    animation: none;
+  }
+}

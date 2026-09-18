@@ -1,0 +1,231 @@
+<!-- Settings Tab -->
+<section id="settings" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker">Settings</span>
+        <h1 class="page-title">Gateway behavior preferences.</h1>
+        <p class="page-description">Adjust how AgentRail processes and delivers requests to your providers.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button class="btn btn--primary" id="settings-save">Save Settings</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="settings-grid">
+    <div class="card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div class="card-header mb-4">
+        <div>
+          <span class="page-kicker">Streaming</span>
+          <h2 class="card-title">Delivery Mode</h2>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="settings-streaming-mode">Mode</label>
+        <select id="settings-streaming-mode" class="field-input">
+          <option value="buffered">Buffered (default - max compatibility)</option>
+          <option value="passthrough">Passthrough (faster first token)</option>
+        </select>
+        <p class="field-hint">
+          <strong>Buffered</strong> collects the full provider response before sending it to the client.
+          <strong>Passthrough</strong> forwards each chunk immediately, so clients see the first token sooner.
+          Tool-call requests always use the buffered path for compatibility.
+        </p>
+      </div>
+      <p class="field-status" id="settings-status" aria-live="polite"></p>
+    </div>
+
+    <div class="card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+      <div class="card-header mb-4">
+        <div>
+          <span class="page-kicker">MCP</span>
+          <h2 class="card-title">MCP Server Bridge</h2>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="settings-mcp-enabled">Bridge</label>
+        <select id="settings-mcp-enabled" class="field-input">
+          <option value="true">Enabled</option>
+          <option value="false">Disabled</option>
+        </select>
+        <p class="field-hint" id="mcp-status-hint">
+          Enable the AgentRail MCP bridge so external clients (e.g. Antigravity) can connect over stdio.
+        </p>
+      </div>
+
+      <div id="mcp-settings-fields" class="mcp-settings-fields">
+        <div class="settings-field-row">
+          <div class="settings-field span-2">
+            <label class="field-label" for="settings-mcp-url">AgentRail URL</label>
+            <input id="settings-mcp-url" class="field-input" type="text" placeholder="http://localhost:42424" />
+            <p class="field-hint">Base URL of the local AgentRail gateway.</p>
+          </div>
+
+          <div class="settings-field">
+            <label class="field-label" for="settings-mcp-api-key">API Key (optional)</label>
+            <input id="settings-mcp-api-key" class="field-input" type="password" placeholder="Optional gateway key" />
+          </div>
+
+          <div class="settings-field">
+            <label class="field-label" for="settings-mcp-timeout">Timeout (ms)</label>
+            <input id="settings-mcp-timeout" class="field-input" type="number" placeholder="30000" />
+          </div>
+        </div>
+
+        <div class="card mcp-snippet-block bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+          <div class="card-header mb-4">
+            <div>
+              <span class="page-kicker">Snippet</span>
+              <strong class="card-title">Add to Antigravity mcp.json</strong>
+            </div>
+            <button class="btn btn--secondary btn--sm" type="button" id="mcp-copy-btn">Copy</button>
+          </div>
+          <p class="field-hint">
+            Paste this snippet into your Antigravity / Claude Desktop / Cursor MCP config to expose AgentRail tools.
+          </p>
+          <pre id="mcp-integration" class="mcp-snippet" aria-live="polite"></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  const modeEl = document.getElementById('settings-streaming-mode');
+  const mcpEnabledEl = document.getElementById('settings-mcp-enabled');
+  const mcpUrlEl = document.getElementById('settings-mcp-url');
+  const mcpApiKeyEl = document.getElementById('settings-mcp-api-key');
+  const mcpTimeoutEl = document.getElementById('settings-mcp-timeout');
+  const mcpFields = document.getElementById('mcp-settings-fields');
+  const statusEl = document.getElementById('settings-status');
+  const mcpIntegrationEl = document.getElementById('mcp-integration');
+  const mcpCopyBtn = document.getElementById('mcp-copy-btn');
+  const mcpStatusHint = document.getElementById('mcp-status-hint');
+  const saveBtn = document.getElementById('settings-save');
+
+  const LOCAL_MCP_PATH = 'D:/Dev/Projects/free-claude-code/dist/mcp/index.js';
+
+  function renderMcpFields(enabled) {
+    if (!mcpFields) return;
+    if (enabled) {
+      mcpFields.style.display = 'block';
+      mcpStatusHint.textContent = 'MCP bridge is enabled. The snippet below can be pasted into any MCP client.';
+    } else {
+      mcpFields.style.display = 'block';
+      mcpStatusHint.textContent = 'MCP bridge is disabled. Enable it above, then copy the snippet into your MCP client (e.g. Antigravity).';
+    }
+    showMcpIntegrationHint(enabled);
+  }
+
+  function showMcpIntegrationHint(enabled) {
+    if (!mcpIntegrationEl) return;
+    if (!enabled) {
+      mcpIntegrationEl.textContent = '"MCP Server Bridge is disabled in AgentRail Settings. Enable it, then this snippet will appear here."';
+      return;
+    }
+    const url = mcpUrlEl.value || 'http://localhost:42424';
+    const apiKey = mcpApiKeyEl.value;
+    const config = {
+      mcpServers: {
+        agentrail: {
+          command: 'node',
+          args: [LOCAL_MCP_PATH],
+          disabled: false,
+          env: {
+            AGENTRAIL_URL: url,
+            ...(apiKey ? { AGENTRAIL_API_KEY: apiKey } : {}),
+          },
+        },
+      },
+    };
+    mcpIntegrationEl.textContent = JSON.stringify(config, null, 2);
+  }
+
+  async function copySnippet() {
+    if (!mcpIntegrationEl.textContent) return;
+    try {
+      await navigator.clipboard.writeText(mcpIntegrationEl.textContent);
+      if (mcpCopyBtn) {
+        mcpCopyBtn.textContent = 'Copied!';
+        setTimeout(() => { if (mcpCopyBtn) mcpCopyBtn.textContent = 'Copy'; }, 1500);
+      }
+    } catch {
+      if (mcpCopyBtn) mcpCopyBtn.textContent = 'Copy failed';
+    }
+  }
+
+  async function load() {
+    try {
+      const res = await fetch('/api/settings');
+      const data = await res.json();
+      const cfg = data.config || {};
+      modeEl.value = cfg.streamingMode === 'passthrough' ? 'passthrough' : 'buffered';
+
+      const mcp = cfg.mcp || {};
+      mcpEnabledEl.value = String(!!mcp.enabled);
+      mcpUrlEl.value = typeof mcp.agentrailUrl === 'string' ? mcp.agentrailUrl : 'http://localhost:42424';
+      mcpApiKeyEl.value = typeof mcp.agentrailApiKey === 'string' ? mcp.agentrailApiKey : '';
+      mcpTimeoutEl.value = typeof mcp.timeoutMs === 'number' ? String(mcp.timeoutMs) : '30000';
+
+      renderMcpFields(!!mcp.enabled);
+    } catch (err) {
+      statusEl.textContent = 'Failed to load settings.';
+      statusEl.className = 'compression-status error';
+    }
+  }
+
+  mcpEnabledEl.addEventListener('change', () => {
+    const enabled = mcpEnabledEl.value === 'true';
+    renderMcpFields(enabled);
+  });
+
+  [mcpUrlEl, mcpApiKeyEl, mcpTimeoutEl].forEach((el) => {
+    el.addEventListener('input', () => {
+      showMcpIntegrationHint(mcpEnabledEl.value === 'true');
+    });
+  });
+
+  mcpCopyBtn.addEventListener('click', copySnippet);
+
+  saveBtn.addEventListener('click', async () => {
+    const payload = {
+      config: {
+        streamingMode: modeEl.value,
+        mcp: {
+          enabled: mcpEnabledEl.value === 'true',
+          agentrailUrl: mcpUrlEl.value || 'http://localhost:42424',
+          agentrailApiKey: mcpApiKeyEl.value || undefined,
+          timeoutMs: Number(mcpTimeoutEl.value || '30000'),
+        },
+      },
+    };
+    statusEl.textContent = 'Saving...';
+    statusEl.className = 'compression-status';
+    try {
+      const res = await fetch('/api/settings', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        statusEl.textContent = 'Failed to save settings.';
+        statusEl.className = 'compression-status error';
+        return;
+      }
+      statusEl.textContent = 'Settings saved.';
+      statusEl.className = 'compression-status success';
+      renderMcpFields(mcpEnabledEl.value === 'true');
+    } catch (err) {
+      statusEl.textContent = 'Failed to save settings.';
+      statusEl.className = 'compression-status error';
+    }
+  });
+
+  load();
+})();
+</script>

@@ -1,0 +1,75 @@
+<!-- Skills Tab -->
+<section id="skills" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker">Agent Skills</span>
+        <h1 class="page-title">Agent-ready skills catalog.</h1>
+        <p class="page-description">Copy a skill URL into any compatible AI client to extend its capabilities. One-click copy for fast integration.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- No persistent actions -->
+      </div>
+    </div>
+  </header>
+
+  <div class="skills-grid content-grid" id="skills-grid">
+    <p class="empty">Loading skills…</p>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const grid = document.getElementById('skills-grid');
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    }[c]));
+
+    function card(skill) {
+      const el = document.createElement('div');
+      el.className = 'skill-card card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6';
+      const clients = (skill.clients || []).map((c) => `<span class="skill-client">${esc(c)}</span>`).join('');
+      el.innerHTML = `
+        <div class="skill-card-head card-header mb-4">
+          <div>
+            <h3 class="card-title">${esc(skill.name)}</h3>
+            <span class="skill-category">${esc(skill.category)}</span>
+          </div>
+        </div>
+        <p class="skill-desc card-subtitle">${esc(skill.description)}</p>
+        <div class="skill-clients">${clients}</div>
+        <div class="skill-actions flex items-center justify-between mt-4">
+          <code class="skill-url" title="${esc(skill.url)}">${esc(skill.url)}</code>
+          <button class="btn btn--secondary btn--sm skill-copy" type="button">Copy URL</button>
+        </div>`;
+      el.querySelector('.skill-copy').addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(skill.url);
+          const btn = el.querySelector('.skill-copy');
+          btn.textContent = 'Copied!';
+          setTimeout(() => (btn.textContent = 'Copy URL'), 1500);
+        } catch (e) {
+          /* clipboard may be unavailable */
+        }
+      });
+      return el;
+    }
+
+    async function load() {
+      try {
+        const res = await fetch('/api/skills');
+        const data = await res.json();
+        grid.innerHTML = '';
+        (data.skills || []).forEach((s) => grid.appendChild(card(s)));
+        if (!data.skills?.length) {
+          grid.innerHTML = '<p class="empty">No skills available.</p>';
+        }
+      } catch (err) {
+        grid.innerHTML = '<p class="empty">Failed to load skills.</p>';
+      }
+    }
+
+    load();
+  })();
+</script>

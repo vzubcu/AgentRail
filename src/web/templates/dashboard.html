@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentRail — AI Access Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: { 500: '#6366f1', 600: '#4f46e5' }
+          },
+          boxShadow: {
+            'glow': '0 0 20px -5px rgba(99, 102, 241, 0.15)',
+            'glow-dark': '0 0 25px -5px rgba(99, 102, 241, 0.25)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    .glass-header {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="dashboard-page bg-slate-50 dark:bg-slate-950 font-sans antialiased text-slate-800 dark:text-slate-100 transition-colors duration-200">
+
+<div id="dashboard-shell" class="agentrail-shell flex h-screen overflow-hidden">
+
+  <!-- ================= SIDEBAR ================= -->
+  <!-- partial:sidebar -->
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <div class="agentrail-main flex-1 flex flex-col overflow-hidden">
+
+    <!-- ================= TOPBAR ================= -->
+    <!-- partial:topbar -->
+
+    <!-- ================= MAIN ================= -->
+    <main id="main-content" class="agentrail-content flex-1 overflow-y-auto p-8 space-y-8 bg-slate-50 dark:bg-slate-950">
+
+      <!-- partial:providers -->
+      <!-- partial:models -->
+      <!-- partial:usage -->
+      <!-- partial:keys -->
+      <!-- partial:virtual-models -->
+      <!-- partial:test-console -->
+      <!-- partial:saas-dashboard -->
+      <!-- partial:quick-connect -->
+      <!-- partial:saas-keys -->
+      <!-- partial:saas-admin -->
+      <!-- partial:settings -->
+      <!-- partial:system-prompts -->
+      <!-- partial:skills -->
+      <!-- partial:memory -->
+      <!-- partial:quota -->
+      <!-- partial:compression -->
+      <!-- partial:mcp-servers -->
+
+    </main>
+  </div>
+
+</div>
+
+<!-- Script Theme Switcher -->
+<script>
+  const htmlElement = document.documentElement;
+  const themeIcon = document.getElementById('theme-icon');
+
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    htmlElement.classList.add('dark');
+    themeIcon.textContent = '☀️';
+  } else {
+    htmlElement.classList.remove('dark');
+    themeIcon.textContent = '🌙';
+  }
+
+  function toggleTheme() {
+    if (htmlElement.classList.contains('dark')) {
+      htmlElement.classList.remove('dark');
+      localStorage.theme = 'light';
+      themeIcon.textContent = '🌙';
+    } else {
+      htmlElement.classList.add('dark');
+      localStorage.theme = 'dark';
+      themeIcon.textContent = '☀️';
+    }
+  }
+</script>
+
+<link rel="stylesheet" href="/static/dist/app.css">
+<script type="module" src="/static/dist/app.js"></script>
+</body>
+</html>

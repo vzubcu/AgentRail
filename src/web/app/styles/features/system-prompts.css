@@ -1,0 +1,199 @@
+/* ── System Prompts ── */
+#system-prompts-content {
+  display: grid;
+  gap: 1rem;
+}
+
+.sp-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding: 0.95rem 1rem;
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, var(--surface-bg), transparent), var(--card-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.sp-toolbar-copy {
+  display: grid;
+  gap: 0.2rem;
+  min-width: min(100%, 320px);
+}
+
+.sp-toolbar-copy strong {
+  color: var(--text-primary);
+  font-size: 0.92rem;
+}
+
+.sp-toolbar-copy span {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.sp-table-card {
+  border: 1px solid var(--surface-border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.sp-table td {
+  color: var(--text-secondary);
+}
+
+.sp-table tbody tr:hover {
+  background: var(--surface-bg);
+}
+
+.sp-prompt-name {
+  color: var(--text-primary);
+  font-weight: 650;
+}
+
+.sp-description-cell {
+  max-width: 300px;
+  line-height: 1.45;
+}
+
+.sp-content-cell {
+  max-width: 460px;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+
+.sp-empty-cell {
+  padding: 2.5rem 1rem !important;
+}
+
+.sp-empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 0.55rem;
+  max-width: 460px;
+  margin: 0 auto;
+  text-align: center;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+.sp-empty-state strong {
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.sp-empty-state span {
+  line-height: 1.55;
+}
+
+.sp-empty-state .btn-secondary {
+  margin-top: 0.35rem;
+}
+
+.sp-form {
+  border-color: var(--surface-border);
+  background: var(--card-bg);
+  box-shadow: var(--shadow-md);
+}
+
+.sp-form .vm-form-header {
+  background: linear-gradient(180deg, var(--surface-bg), transparent);
+}
+
+.sp-form .vm-form-section {
+  background: var(--surface-bg);
+  border-color: var(--surface-border);
+}
+
+.sp-section-heading {
+  margin-bottom: 1rem;
+}
+
+.sp-form .vm-form-group input[type='text'],
+.sp-form .vm-form-group textarea {
+  background: var(--bg-elevated);
+  border-color: var(--border-panel);
+  color: var(--text-primary);
+  color-scheme: light;
+}
+
+.dark .sp-form .vm-form-group input[type='text'],
+.dark .sp-form .vm-form-group textarea {
+  color-scheme: dark;
+}
+
+.sp-form .vm-form-group input[type='text']:focus,
+.sp-form .vm-form-group textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-dim);
+}
+
+.sp-form .vm-form-group input:disabled {
+  background: var(--surface-bg);
+  color: var(--text-muted);
+}
+
+.sp-content-textarea {
+  min-height: 320px;
+  font-family: var(--font-mono) !important;
+  font-size: 0.82rem !important;
+  line-height: 1.65;
+  resize: vertical;
+}
+
+.sp-form .vm-form-actions-footer {
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 1rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0), var(--card-bg) 32%, var(--card-bg));
+  border-top-color: var(--surface-border);
+}
+
+.dark .sp-form .vm-form-actions-footer {
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0), var(--card-bg) 32%, var(--card-bg));
+}
+
+.sp-form .vm-form-feedback:not(:empty) {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.sp-form .vm-form-feedback-error:not(:empty) {
+  color: var(--danger);
+  background: var(--danger-dim);
+  border: 1px solid var(--danger-border);
+}
+
+.sp-form .vm-form-feedback-info:not(:empty) {
+  color: var(--accent);
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+}
+
+@media (max-width: 760px) {
+  .sp-toolbar {
+    align-items: stretch;
+  }
+
+  .sp-toolbar .btn-primary,
+  .sp-empty-state .btn-secondary {
+    width: 100%;
+  }
+
+  .sp-form .vm-form-grid-two-up {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-form .vm-form-header,
+  .sp-form .vm-form-actions-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

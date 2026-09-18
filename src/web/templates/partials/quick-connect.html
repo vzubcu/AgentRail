@@ -1,0 +1,367 @@
+<!-- Quick Connect Tab -->
+<section id="quick-connect" class="tab-content">
+  <header class="glass-header border-b border-slate-200/80 dark:border-slate-800/80 p-6 mb-6">
+    <div class="flex items-center justify-between">
+      <div>
+        <span class="page-kicker text-slate-500 dark:text-slate-400">Quick Connect</span>
+        <h1 class="text-xl font-bold text-slate-900 dark:text-white">Connect local coding tools through AgentRail</h1>
+      </div>
+      <div class="flex items-center gap-2">
+        <!-- No persistent actions -->
+      </div>
+    </div>
+  </header>
+
+  <section class="card quick-connect-panel bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6" aria-label="Quick connect endpoints">
+    <div class="card-header mb-4">
+      <div>
+        <h2 class="card-title text-xl font-bold text-slate-900 dark:text-white">Quick Connect</h2>
+      </div>
+    </div>
+
+    <div class="quick-connect-list space-y-4">
+      <div class="quick-connect-row flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/50 rounded-xl border border-slate-100 dark:border-slate-800/60">
+        <div>
+          <span class="text-sm font-medium text-slate-900 dark:text-white">OpenAI Compatible Endpoint</span>
+          <code data-endpoint-display="openai" class="block text-xs font-mono text-slate-500 dark:text-slate-400 mt-1"></code>
+          <small class="text-xs text-slate-500 dark:text-slate-400">Base URL for OpenAI compatible requests</small>
+        </div>
+        <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors endpoint-copy-button" type="button" data-copy-endpoint-key="openai">Copy</button>
+      </div>
+      <div class="quick-connect-row flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/50 rounded-xl border border-slate-100 dark:border-slate-800/60">
+        <div>
+          <span class="text-sm font-medium text-slate-900 dark:text-white">Anthropic Compatible Endpoint</span>
+          <code data-endpoint-display="anthropic" class="block text-xs font-mono text-slate-500 dark:text-slate-400 mt-1"></code>
+          <small class="text-xs text-slate-500 dark:text-slate-400">Endpoint for Anthropic compatible requests</small>
+        </div>
+        <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors endpoint-copy-button" type="button" data-copy-endpoint-key="anthropic">Copy</button>
+      </div>
+      <div class="quick-connect-row flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/50 rounded-xl border border-slate-100 dark:border-slate-800/60">
+        <div>
+          <span class="text-sm font-medium text-slate-900 dark:text-white">AgentRail API Key</span>
+          <code class="block text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">Create or copy an AgentRail key from Account Keys</code>
+          <small class="text-xs text-slate-500 dark:text-slate-400">Use this key to connect tools to AgentRail. Manage it in <button class="inline-link-button text-indigo-600 dark:text-indigo-400 hover:underline" type="button" data-overview-target="saas-keys">AgentRail API Keys</button></small>
+        </div>
+        <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors endpoint-copy-button" type="button" data-overview-target="saas-keys">Manage</button>
+      </div>
+      <div class="quick-connect-test-row flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-950/50 rounded-xl border border-slate-100 dark:border-slate-800/60">
+        <div>
+          <strong class="text-sm font-medium text-slate-900 dark:text-white">Test Connection</strong>
+          <small class="block text-xs text-slate-500 dark:text-slate-400">Last test: local session</small>
+        </div>
+        <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-overview-target="test">Test</button>
+      </div>
+
+      <div class="quick-connect-tool-groups space-y-8">
+        <section class="quick-connect-tool-group">
+          <div class="quick-connect-tool-group-header mb-4">
+            <strong class="text-lg font-semibold text-slate-900 dark:text-white">CLI</strong>
+            <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Persistent setup for local coding CLIs, with a separate default model for launch where AgentRail can open the tool for you.</small>
+          </div>
+          <div class="quick-connect-tool-grid space-y-4">
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Claude Code</strong>
+                    <span class="quick-connect-mode-badge configured px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Configured</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Write AgentRail Claude profiles, choose setup models, then keep a separate default model for dashboard launch.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="claude" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="claude" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Default launch model</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="claude" data-agent-model-role="launch"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="claude" data-agent-model-role="launch"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="claude" data-agent-result-id="claude-agent-config-result">Configure Claude Code</button>
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-launch="claude" data-agent-result-id="claude-agent-config-result">Launch Claude Code</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="claude-agent-config-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Codex</strong>
+                    <span class="quick-connect-mode-badge configured px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Configured</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Write AgentRail Codex profiles and keep launch selection separate from the models written during setup.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="codex" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="codex" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Default launch model</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="codex" data-agent-model-role="launch"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="codex" data-agent-model-role="launch"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="codex" data-agent-result-id="codex-agent-config-result">Configure Codex</button>
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-launch="codex" data-agent-result-id="codex-agent-config-result">Launch Codex</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="codex-agent-config-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">OpenCode</strong>
+                    <span class="quick-connect-mode-badge guide px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Guide</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Manual OpenAI-compatible wiring guide with the AgentRail endpoint and key variable.</small>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-guide="opencode" data-agent-result-id="opencode-agent-guide-result">Show setup</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="opencode-agent-guide-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Aider</strong>
+                    <span class="quick-connect-mode-badge guide px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Guide</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Manual OpenAI-compatible setup guide for Aider without writing local secrets to disk.</small>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-guide="aider" data-agent-result-id="aider-agent-guide-result">Show setup</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="aider-agent-guide-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Codex Desktop</strong>
+                    <span class="quick-connect-mode-badge guide px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Guide</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Guide-only desktop wiring using AgentRail's local Responses-compatible endpoint.</small>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-guide="codex-desktop" data-agent-result-id="codex-desktop-agent-guide-result">Show setup</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="codex-desktop-agent-guide-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card quick-connect-tool-card-guide cursor-guide-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Cursor</strong>
+                    <span class="quick-connect-mode-badge guide px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Guide</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Clean manual wiring for Cursor through AgentRail's OpenAI-compatible endpoint, with a recommended default model.</small>
+                </div>
+              </div>
+              <div class="quick-connect-guide-chips flex gap-2 mb-4" aria-hidden="true">
+                <span class="quick-connect-guide-chip px-2 py-0.5 text-xs font-medium rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">OpenAI-compatible</span>
+                <span class="quick-connect-guide-chip px-2 py-0.5 text-xs font-medium rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400">Recommended for local IDE use</span>
+              </div>
+              <div class="quick-connect-guide-note text-sm text-slate-500 dark:text-slate-400 mb-4">
+                Best when you want Cursor to talk directly to AgentRail without changing your existing provider routing strategy.
+              </div>
+              <div class="quick-connect-button-row flex gap-2">
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-guide="cursor" data-agent-result-id="cursor-agent-guide-result">Show setup</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="cursor-agent-guide-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card quick-connect-tool-card-guide antigravity-guide-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Antigravity</strong>
+                    <span class="quick-connect-mode-badge guide px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Guide</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Reference flow for Antigravity when your local build supports a custom endpoint, proxy hop, or equivalent manual upstream override.</small>
+                </div>
+              </div>
+              <div class="quick-connect-guide-chips flex gap-2 mb-4" aria-hidden="true">
+                <span class="quick-connect-guide-chip warning px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Proxy-style</span>
+                <span class="quick-connect-guide-chip px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Manual integration</span>
+              </div>
+              <div class="quick-connect-guide-note warning text-sm text-amber-600 dark:text-amber-400 mb-4">
+                This is not one-click launch. Treat it as a careful manual path for advanced local setups.
+              </div>
+              <div class="quick-connect-button-row flex gap-2">
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-guide="antigravity" data-agent-result-id="antigravity-agent-guide-result">Show setup</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="antigravity-agent-guide-result" aria-live="polite"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="quick-connect-tool-group">
+          <div class="quick-connect-tool-group-header mb-4">
+            <strong class="text-lg font-semibold text-slate-900 dark:text-white">VS Code</strong>
+            <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Tool-specific setup for extensions with safe config writers or guided manual follow-up.</small>
+          </div>
+          <div class="quick-connect-tool-grid space-y-4">
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Continue</strong>
+                    <span class="quick-connect-mode-badge configured px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Configured</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Writes <code class="text-xs font-mono bg-slate-100 dark:bg-slate-800 px-1 rounded">~/.continue/config.yaml</code> against the live AgentRail model surface.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="continue" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="continue" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="continue" data-agent-result-id="continue-agent-config-result">Configure Continue</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="continue-agent-config-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Cline</strong>
+                    <span class="quick-connect-mode-badge assisted px-2 py-0.5 text-xs font-medium rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400">Assisted</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Writes the safe non-secret scaffold and returns the exact manual API-key step that remains.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="cline" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="cline" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="cline" data-agent-result-id="cline-agent-config-result">Configure Cline</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="cline-agent-config-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Roo Code</strong>
+                    <span class="quick-connect-mode-badge assisted px-2 py-0.5 text-xs font-medium rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400">Assisted</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Writes the AgentRail import scaffold and leaves the provider key as an explicit manual step.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="roo" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="roo" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="roo" data-agent-result-id="roo-agent-config-result">Configure Roo Code</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="roo-agent-config-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Kilo Code</strong>
+                    <span class="quick-connect-mode-badge assisted px-2 py-0.5 text-xs font-medium rounded-full bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400">Assisted</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Writes non-secret VS Code settings and returns the manual API-key action still required.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="kilo" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="kilo" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="kilo" data-agent-result-id="kilo-agent-config-result">Configure Kilo Code</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="kilo-agent-config-result" aria-live="polite"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="quick-connect-tool-group">
+          <div class="quick-connect-tool-group-header mb-4">
+            <strong class="text-lg font-semibold text-slate-900 dark:text-white">JetBrains / Rider</strong>
+            <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Continue can be configured for Rider now; Junie stays guide-only until there is a stable local file contract.</small>
+          </div>
+          <div class="quick-connect-tool-grid quick-connect-tool-grid-two-up grid grid-cols-1 md:grid-cols-2 gap-4">
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Continue</strong>
+                    <span class="quick-connect-mode-badge configured px-2 py-0.5 text-xs font-medium rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">Configured</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Uses the same Continue config file, surfaced here with Rider-focused manual follow-up.</small>
+                </div>
+              </div>
+              <div class="quick-connect-filter-stack space-y-4">
+                <div>
+                  <div class="quick-connect-filter-label text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Setup models</div>
+                  <div class="quick-connect-filter-group" data-agent-filter-target="continue" data-agent-model-role="setup"></div>
+                  <select class="quick-connect-model-picker w-full px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700/80 dark:bg-slate-900/50 text-sm focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-400 transition-colors" data-agent-model-target="continue" data-agent-model-role="setup" multiple size="5"></select>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--primary px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 hover:bg-indigo-500 text-white transition-all shadow-sm shadow-indigo-500/25 compact-test-button" type="button" data-agent-configure="continue" data-agent-result-id="continue-rider-agent-config-result">Configure Continue</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="continue-rider-agent-config-result" aria-live="polite"></div>
+            </article>
+
+            <article class="quick-connect-tool-card bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800/80 rounded-2xl p-6">
+              <div class="quick-connect-tool-card-header mb-4">
+                <div>
+                  <div class="quick-connect-tool-title-row flex items-center gap-2">
+                    <strong class="text-base font-semibold text-slate-900 dark:text-white">Junie</strong>
+                    <span class="quick-connect-mode-badge guide px-2 py-0.5 text-xs font-medium rounded-full bg-amber-50 dark:bg-amber-500/10 text-amber-600 dark:text-amber-400">Guide</span>
+                  </div>
+                  <small class="block text-sm text-slate-500 dark:text-slate-400 mt-1">Guide-only Rider setup with AgentRail endpoint, model, and gateway key reference.</small>
+                </div>
+              </div>
+              <div class="quick-connect-button-row flex gap-2 mt-4">
+                <button class="btn btn--secondary px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700/80 text-sm font-medium hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors compact-test-button" type="button" data-agent-guide="junie" data-agent-result-id="junie-agent-guide-result">Show setup</button>
+              </div>
+              <div class="quick-connect-result mt-2" id="junie-agent-guide-result" aria-live="polite"></div>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <div class="endpoint-copy-feedback mt-4" id="endpoint-copy-feedback" aria-live="polite"></div>
+    </div>
+  </section>
+</section>
